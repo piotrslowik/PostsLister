@@ -4,11 +4,12 @@ export const goToLogin = vue => {
 
 export const getTokenConfig = vue => {
     const token = vue.$cookies.get('token');
-    return config = {
+    const config = {
         headers: {
             'Authorization': `Bearer ${token}`,
         }
     };
+    return config;
 }
 
 export const setToken = (vue, string) => {
