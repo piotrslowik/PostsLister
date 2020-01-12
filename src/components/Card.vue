@@ -51,7 +51,7 @@ export default {
         this.$emit('on-delete');
       }
       catch (error) {
-        alert("You can't delete it. Your session ended.");
+        alert("You can't delete it. Your session has ended.");
         eventBus.$emit('tokenSet', null);
         goToLogin(this);
       }

@@ -32,7 +32,7 @@ export default {
                 eventBus.$emit('tokenSet', null);
             }
             catch (error) {
-                alert('Your session ended.');
+                alert('Your session has ended.');
                 goToLogin(this);
                 eventBus.$emit('tokenSet', null);
             }
