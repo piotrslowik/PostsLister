@@ -12,7 +12,6 @@
 <script>
 import Axios from 'axios';
 import { eventBus } from '../events';
-import { getTokenConfig } from '../helpers'
 
 export default {
     name: 'Header',
@@ -24,9 +23,8 @@ export default {
     },
     methods: {
         logout: async function () {
-            const config = getTokenConfig(this);
             try {
-                await Axios.post('https://rekrutacja.multiplay.pl/api/logout', {}, config);
+                await Axios.post('https://rekrutacja.multiplay.pl/api/logout');
                 this.$cookies.remove('token');
                 this.goToLogin();
                 eventBus.$emit('tokenSet', null);

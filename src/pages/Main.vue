@@ -24,7 +24,6 @@
 
 <script>
 import Axios from 'axios';
-import { getTokenConfig } from '../helpers';
 
 import Card from '../components/Card';
 import Paginator from '../components/Paginator';
@@ -45,9 +44,8 @@ export default {
   },
   methods: {
     fetchData: async function (link) {
-      const config = getTokenConfig(this);
       try {
-        const result = await Axios.get(link, config);
+        const result = await Axios.get(link);
         this.setData(result.data);
       }
       catch (error) {

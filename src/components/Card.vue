@@ -26,7 +26,6 @@
 
 <script>
 import Post from './Post';
-import { getTokenConfig } from '../helpers';
 
 import Axios from 'axios';
 
@@ -43,9 +42,8 @@ export default {
   },
   methods: {
     deleteAccount: async function () {
-      const config = getTokenConfig(this);
       try {
-        await Axios.delete(`https://rekrutacja.multiplay.pl/api/interview/${this.id}`, config);
+        await Axios.delete(`https://rekrutacja.multiplay.pl/api/interview/${this.id}`);
         this.$emit('on-delete');
       }
       catch (error) {

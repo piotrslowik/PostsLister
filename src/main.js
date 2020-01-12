@@ -35,6 +35,13 @@ const router = new VueRouter({
   mode: 'history',
 });
 
+Axios.interceptors.request.use(
+  config => {
+    const token = Vue.$cookies.get('token');
+    if (token) config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  }
+)
 Axios.interceptors.response.use(
   response => {
     const tokenString = response.headers.authorization;
