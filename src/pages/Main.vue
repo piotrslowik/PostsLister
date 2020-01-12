@@ -50,8 +50,9 @@ export default {
       try {
         const result = await Axios.get(link, config);
         this.setData(result.data);
-        setToken(this, result.headers.authorization);
-        eventBus.$emit('tokenSet', token);
+        const newToken = result.headers.authorization;
+        setToken(this, newToken);
+        eventBus.$emit('tokenSet', newToken);
       }
       catch (error) {
         alert('Reading posts requires logging in.');

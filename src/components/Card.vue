@@ -11,7 +11,7 @@
         </md-card-header>
 
         <md-card-content>
-            <div class="md-title">Posts:</div>
+            <div class="md-title Card__posts-header">Posts:</div>
             <Post v-for="post in posts" :key="post.id"
                 :id="post.id"
                 :title="post.title"
@@ -69,6 +69,9 @@ export default {
     }
     &__email {
         text-align: left;
+    }
+    &__posts-header {
+      text-align: center;
     }
 }
 </style>
