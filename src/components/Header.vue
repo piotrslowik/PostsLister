@@ -11,7 +11,8 @@
 
 <script>
 import Axios from 'axios';
-import { eventBus } from '../events.js';
+import { eventBus } from '../events';
+import { goToLogin, getTokenConfig } from '../helpers'
 
 export default {
     name: 'Header',
@@ -23,26 +24,18 @@ export default {
     },
     methods: {
         logout: async function () {
-            const token = this.$cookies.get('token');
-            const config = {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                }
-            };
+            const config = getTokenConfig(this);
             try {
                 await Axios.post('https://rekrutacja.multiplay.pl/api/logout', {}, config);
                 this.$cookies.remove('token');
-                this.$router.push({name: 'login'});
+                goToLogin(this)
                 eventBus.$emit('tokenSet', null);
             }
             catch (error) {
                 alert('Your session ended.');
-                this.goToLogin();
+                goToLogin(this);
                 eventBus.$emit('tokenSet', null);
             }
-        },
-        goToLogin: function () {
-            this.$router.push({name: 'login'});
         },
     }
 }

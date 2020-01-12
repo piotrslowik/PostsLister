@@ -1,4 +1,4 @@
-# login
+# Auth functionality
 
 ## Project setup
 ```

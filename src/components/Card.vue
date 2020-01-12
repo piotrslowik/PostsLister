@@ -26,7 +26,8 @@
 
 <script>
 import Post from './Post';
-import eventBus from '../events';
+import { eventBus } from '../events';
+import { goToLogin, getTokenConfig, setToken } from '../helpers';
 
 import Axios from 'axios';
 
@@ -43,29 +44,17 @@ export default {
   },
   methods: {
     deleteAccount: async function () {
-      const token = this.$cookies.get('token');
-      const config = {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        }
-      };
+      const config = getTokenConfig(this);
       try {
         const result = await Axios.delete(`https://rekrutacja.multiplay.pl/api/interview/${this.id}`, config);
-        this.setToken(result.headers.authorization);
+        setToken(this, result.headers.authorization);
         this.$emit('on-delete');
       }
       catch (error) {
         alert("You can't delete it. Your session ended.");
         eventBus.$emit('tokenSet', null);
-        this.goToLogin();
+        goToLogin(this);
       }
-    },
-    setToken: function (string) {
-      const token = string.split(' ')[1];
-      this.$cookies.set('token', token, 60);
-    },
-    goToLogin: function () {
-      this.$router.push({name: 'login'});
     },
   }
 }

@@ -24,7 +24,8 @@
 
 <script>
 import Axios from 'axios';
-import { eventBus } from '../events.js';
+import { eventBus } from '../events';
+import { goToLogin, getTokenConfig, setToken } from '../helpers';
 
 import Card from '../components/Card';
 import Paginator from '../components/Paginator';
@@ -45,31 +46,22 @@ export default {
   },
   methods: {
     fetchData: async function (link) {
-      const token = this.$cookies.get('token');
-      const config = {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        }
-      };
+      const config = getTokenConfig(this);
       try {
         const result = await Axios.get(link, config);
         this.setData(result.data);
-        this.setToken(result.headers.authorization);
+        setToken(this, result.headers.authorization);
+        eventBus.$emit('tokenSet', token);
       }
       catch (error) {
         alert('Reading posts requires logging in.');
         eventBus.$emit('tokenSet', null);
-        this.goToLogin();
+        goToLogin(this);
       }
     },
     setData: function (data) {
       this.data = data.data;
       this.links = data.links;
-    },
-    setToken: function (string) {
-      const token = string.split(' ')[1];
-      this.$cookies.set('token', token, 60);
-      eventBus.$emit('tokenSet', token);
     },
     handleFetch: function (link) {
       this.activeLink = link;
@@ -86,9 +78,6 @@ export default {
       const newArray = posts.slice(0, posts.length);
       newArray.sort((post1, post2) => post2.id - post1.id);
       return newArray;
-    },
-    goToLogin: function () {
-      this.$router.push({name: 'login'});
     },
   }
 }
