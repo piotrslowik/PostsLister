@@ -55,13 +55,16 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+
 .LoginPage {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    &-inputs {
+        width: 500px;
+    }
 }
-.LoginPage-inputs {
-    width: 500px;
-}
+
 </style>
