@@ -45,7 +45,7 @@ export default {
     deleteAccount: async function () {
       const config = getTokenConfig(this);
       try {
-        const result = await Axios.delete(`https://rekrutacja.multiplay.pl/api/interview/${this.id}`, config);
+        await Axios.delete(`https://rekrutacja.multiplay.pl/api/interview/${this.id}`, config);
         this.$emit('on-delete');
       }
       catch (error) {
