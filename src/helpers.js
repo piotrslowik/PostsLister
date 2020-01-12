@@ -7,8 +7,3 @@ export const getTokenConfig = vue => {
     };
     return config;
 }
-
-export const setToken = (vue, string) => {
-    const token = string.split(' ')[1];
-    vue.$cookies.set('token', token, 60);
-}
