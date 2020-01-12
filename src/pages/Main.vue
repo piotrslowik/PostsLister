@@ -24,8 +24,7 @@
 
 <script>
 import Axios from 'axios';
-import { eventBus } from '../events';
-import { goToLogin, getTokenConfig, setToken } from '../helpers';
+import { getTokenConfig } from '../helpers';
 
 import Card from '../components/Card';
 import Paginator from '../components/Paginator';
@@ -50,14 +49,9 @@ export default {
       try {
         const result = await Axios.get(link, config);
         this.setData(result.data);
-        const newToken = result.headers.authorization;
-        setToken(this, newToken);
-        eventBus.$emit('tokenSet', newToken);
       }
       catch (error) {
-        alert('Reading posts requires logging in.');
-        eventBus.$emit('tokenSet', null);
-        goToLogin(this);
+        return error;
       }
     },
     setData: function (data) {

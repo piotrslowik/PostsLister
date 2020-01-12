@@ -42,7 +42,7 @@ export default {
                 });
                 const token = result.data.data.access_token;
                 this.$cookies.set('token', token, 60);
-                this.$router.push({name: 'posts'});
+                this.goToPosts();
             }
             catch (error) {
                 throw error;

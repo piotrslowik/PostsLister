@@ -12,7 +12,7 @@
 <script>
 import Axios from 'axios';
 import { eventBus } from '../events';
-import { goToLogin, getTokenConfig } from '../helpers'
+import { getTokenConfig } from '../helpers'
 
 export default {
     name: 'Header',
@@ -28,15 +28,16 @@ export default {
             try {
                 await Axios.post('https://rekrutacja.multiplay.pl/api/logout', {}, config);
                 this.$cookies.remove('token');
-                goToLogin(this)
+                this.goToLogin();
                 eventBus.$emit('tokenSet', null);
             }
             catch (error) {
-                alert('Your session has ended.');
-                goToLogin(this);
-                eventBus.$emit('tokenSet', null);
+                return error;
             }
         },
+        goToLogin: function () {
+            this.$router.push({name: 'login'});
+        }
     }
 }
 </script>

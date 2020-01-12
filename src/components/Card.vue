@@ -26,8 +26,7 @@
 
 <script>
 import Post from './Post';
-import { eventBus } from '../events';
-import { goToLogin, getTokenConfig, setToken } from '../helpers';
+import { getTokenConfig, setToken } from '../helpers';
 
 import Axios from 'axios';
 
@@ -51,9 +50,7 @@ export default {
         this.$emit('on-delete');
       }
       catch (error) {
-        alert("You can't delete it. Your session has ended.");
-        eventBus.$emit('tokenSet', null);
-        goToLogin(this);
+        return error;
       }
     },
   }

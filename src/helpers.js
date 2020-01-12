@@ -1,7 +1,3 @@
-export const goToLogin = vue => {
-    vue.$router.push({name: 'login'});
-}
-
 export const getTokenConfig = vue => {
     const token = vue.$cookies.get('token');
     const config = {
