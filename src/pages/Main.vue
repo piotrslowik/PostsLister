@@ -9,7 +9,7 @@
         :email="el.email"
         :posts="sortPostsArray(el.posts)"
         :id="el.id"
-        @on-delete="handleDelete"
+        @on-delete="refetchPosts"
       />
     </div>
     <Paginator 
@@ -61,7 +61,7 @@ export default {
       this.fetchData(link);
       this.scrollToTop();
     },
-    handleDelete: function () {
+    refetchPosts: function () {
       this.fetchData(this.activeLink);
     },
     scrollToTop() {
